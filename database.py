@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine, text
 
 engine = create_engine(
-    "mysql+pymysql://sql6701490:VYUa9VsTrc@sql6.freemysqlhosting.net/sql6701490?charset=utf8mb4"
-)
+    "mariadb+pymysql://root:!nspir3P3ns@10.10.9.121/wbt?charset=utf8mb4")
 
 # with engine.connect() as conn:
 #     result = conn.execute(text("select * from jobs"))
@@ -33,3 +32,23 @@ def load_jobs_from_db():
     for row in result.all():
       jobs.append(dict(zip(column_names, row)))
     return jobs
+
+
+# def load_job_from_db(id):
+#   with engine.connect() as conn:
+#     result = conn.execute(text("SELECT * FROM jobs WHERE id = :val"),{'val': id})
+#     row = result.fetchone()
+
+#     return row._asdict([0])
+
+
+def load_job_from_db(id):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"SELECT * FROM jobs WHERE id={id}"))
+    rows = []
+    for row in result.all():
+      rows.append(row._mapping)
+    if len(rows) == 0:
+      return None
+    else:
+      return row

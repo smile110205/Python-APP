@@ -1,6 +1,6 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 
-from database import load_jobs_from_db, load_job_from_db
+from database import load_jobs_from_db, load_job_from_db, add_application_to_db
 
 # from sqlalchemy import text
 
@@ -19,6 +19,11 @@ def list_jobs():
   return jsonify(jobs)
 
 
+@app.route("/login")
+def login():
+  return render_template('login.html')
+
+
 @app.route("/job/<id>")
 def show_job(id):
   job = load_job_from_db(id)
@@ -28,5 +33,23 @@ def show_job(id):
   # return jsonify(job)
 
 
+@app.route("/api/job/<id>")
+def show_job_jsob(id):
+  job = load_job_from_db(id)
+  return jsonify(job)
+
+
+@app.route("/job/<id>/apply", methods=['POST'])
+def apply_to_job(id):
+  data = request.form
+  #  return jsonify(data)
+  job = load_job_from_db(id)
+  add_application_to_db(id, data)
+
+  return render_template('application_submitted.html',
+                         application=data,
+                         job=job)
+
+
 if __name__ == "__main__":
-  app.run(port=7000, debug=True)
+  app.run(port=8000, debug=True)

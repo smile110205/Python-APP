@@ -69,7 +69,7 @@ def add_application_to_db(job_id, data):
   with engine.connect() as conn:
     # query = text(f"INSERT INTO applications (job_id, full_name, email, linked_url, education, work_experience, resume_url) VALUES(:{job_id},:{'full_name'},:{'email'},:{'linked_url'},:{'education'},:{'work_experience'},:{'resume_url'})")
     query = text(
-        f"INSERT INTO applications (job_id, full_name, email, linked_url, education, work_experience, resume_url) VALUES ({job_id}, '{data['full_name']}', '{data['email']}', '{data['linked_url']}', '{data['education']}', '{data['work_experience']}', '{data['resume_url']}')"
+        f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url) VALUES ({job_id}, '{data['full_name']}', '{data['email']}', '{data['linkedin_url']}', '{data['education']}', '{data['work_experience']}', '{data['resume_url']}')"
     )
     # query = text("INSERT INTO applications (job_id, full_name, email, linked_url, education, work_experience, resume_url) VALUES (:job_id, :full_name, :email, :linked_url, :education, :work_experience, :resume_url)")
 

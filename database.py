@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, text
 
 engine = create_engine(
-    "mysql+pymysql://sql6701490:VYUa9VsTrc@sql6.freemysqlhosting.net/sql6701490?charset=utf8mb4"
+    "mysql+pymysql://sql6704924:Ygi1Siee32@sql6.freemysqlhosting.net/sql6704924?charset=utf8mb4"
 )
 
 # with engine.connect() as conn:
